@@ -18,7 +18,7 @@ public class Ladder {
 
     public int arrivalPoint(int startPoint) {
         AtomicInteger currentPoint = new AtomicInteger(startPoint);
-        lines.forEach(line -> currentPoint.set(line.move(currentPoint.get())));
+        lines.forEach(line -> currentPoint.set(line.move(currentPoint)));
 
         return currentPoint.get();
     }
@@ -30,9 +30,8 @@ public class Ladder {
     public List<Line> make(int width, int lineCount) {
         LineGeneratorFactory lineGeneratorFactory = new LineGeneratorFactory();
 
-        return Stream.generate(() -> {
-            LineGenerator lineGenerator = lineGeneratorFactory.lineGenerator();
-            return lineGenerator.generate(width);
-        }).limit(lineCount).collect(Collectors.toList());
+        return Stream.generate(() -> lineGeneratorFactory.generate(width))
+                .limit(lineCount)
+                .collect(Collectors.toList());
     }
 }

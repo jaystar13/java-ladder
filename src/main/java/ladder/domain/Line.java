@@ -1,6 +1,7 @@
 package ladder.domain;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Line {
     private final List<Point> points;
@@ -9,6 +10,10 @@ public class Line {
         this.points = points;
     }
 
+    public int move(AtomicInteger positionIndex) {
+        return move(positionIndex.get());
+    }
+    
     public int move(int positionIndex) {
         return points.get(positionIndex).move();
     }
